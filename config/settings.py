@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-#^aj(l2u=e8l7v261=whq&*(#op^!l2h25-phhh!0rb$+o#2x1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     # local apps
     'core.apps.CoreConfig',
 
+    # third party apps
+    'debug_toolbar',
+
 ]
 
 MIDDLEWARE = [
@@ -52,7 +55,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+}
+
 
 ROOT_URLCONF = 'config.urls'
 
