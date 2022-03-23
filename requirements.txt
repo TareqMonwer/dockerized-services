@@ -1,0 +1,4 @@
+Django==4.0.3
+psycopg2>=2.8
+Faker 13.3.2
+
