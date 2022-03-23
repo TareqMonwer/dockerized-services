@@ -9,3 +9,6 @@
 + Add Unit Tests and Test-Coverage
 + Make use of CI/CD
 + Make use of PDF Reporting/Generation with task managers.
++ Make use of context_processors, custom middlewares, custom management command, data-scripts
++ Implement multiprocessing, batching, multithreading related things.
++ Find and ensure possible use of HTMX, Logger, DRF, 
