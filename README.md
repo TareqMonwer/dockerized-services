@@ -6,3 +6,6 @@
 + Implement notification and chat system.
 + Postgres full-text-search
 + Saas based authentication and authorization
++ Add Unit Tests and Test-Coverage
++ Make use of CI/CD
++ Make use of PDF Reporting/Generation with task managers.
