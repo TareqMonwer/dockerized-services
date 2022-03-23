@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+    Home | {{ block.super }}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        {% for object in object_list %}
+            <div class="col-12 col-md-4 col-lg-3 col-xl-3 my-2">
+                <div class="card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.address }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Country: </strong> {{ object.country }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>City: </strong> {{ object.city }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Company: </strong> {{ object.company }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Profession: </strong> {{ object.profession }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Phone: </strong> {{ object.phone }}
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <div class="col-6">
+            <h5>No Millionaire Records Found!</h5>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 
