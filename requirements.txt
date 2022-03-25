@@ -2,4 +2,5 @@ Django==4.0.3
 psycopg2>=2.8
 Faker==13.3.2
 django-debug-toolbar==3.2.4
-Pillow==9.0.1 
+Pillow==9.0.1
+django-htmx==1.9.0
