@@ -6,3 +6,4 @@ Pillow==9.0.1
 django-htmx==1.9.0
 coverage==6.3.2
 django-coverage-plugin==2.0.2
+locust==2.8.5
