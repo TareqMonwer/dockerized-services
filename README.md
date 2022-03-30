@@ -1,14 +1,14 @@
 ### Primary Goals:
-+ Run every services in docker containers
-+ Add Unit Tests and Test-Coverage
-+ Use huge data and perform loadtesting
-+ Make use of caching with redis
-+ Run scheduled tasks, manage long tasks via task management tools.
-+ Implement notification and chat system.
-+ Postgres full-text-search
-+ Saas based authentication and authorization
-+ Make use of CI/CD
-+ Make use of PDF Reporting/Generation with task managers.
++ Run every services in docker containers `docker, docker-compose, k8s`
++ Add Unit Tests and Test-Coverage `coverage, unittest, django-test, pre-commit, CI/CD`
++ Use huge data security and perform loadtesting `locust.io, OWASP Security issues`
++ Make use of caching with redis `cache template, urls, use NoSQL/In-Memory DB for some cases`
++ Run scheduled tasks, manage long tasks via task management tools. `celery, django-q`
++ Implement notification and chat system. `django-channels`
++ Postgres full-text-search. `postgresql, elasticsearch`
++ Saas based authentication and authorization. `django-multitenant?`
++ Make use of CI/CD `github actions/cirlcle ci`
++ Make use of PDF Reporting/Generation with task managers. `waeasy print, xhtml2pdf`
 + Make use of context_processors, custom middlewares, custom management command, data-scripts
 + Implement multiprocessing, batching, multithreading related things.
 + Find and ensure possible use of HTMX, Logger, DRF
