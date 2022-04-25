@@ -2,6 +2,11 @@ from django.contrib import admin
 from core.models import Company, Country, Millionaire
 
 
+class MillionaireAdmin(admin.ModelAdmin):
+    list_display = ('name','country','city', 'profession')
+    search_fields = ['name',]
+
+
 admin.site.register(Company)
 admin.site.register(Country)
-admin.site.register(Millionaire)
+admin.site.register(Millionaire, MillionaireAdmin)

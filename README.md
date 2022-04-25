@@ -35,3 +35,9 @@ provide folder permission using this command: `sudo chown -R $USER:$USER .` <br>
 + if you want to run migration and perform other bash actions from the project terminal, run `dodcke-compose exec we sh`. <br> It will take you to the project root bash of the docker host. Try perfoming some linux commands ;)
 + EXTRA: generate data running data scripts in this order: (`generate_countries.py, company_generator.py, generate_millionaires.py`)
 + EXTRA PERFORMANCE TESTING: run `locust` and you can monitor performance metrics at `http://127.0.0.1:8089/`
+
+## Project scripts (RunScript by django-extensions):
++ use self explanatory run scripts by running the command bellow (chose either option from <>).
++ Available scripts: <br> `company_generator` <br>`generate_countries` <br>
+`generate_millionaires` <br> `upload_billionaire_images`
++ command: `python manage.py runscript upload_billionaire_images`

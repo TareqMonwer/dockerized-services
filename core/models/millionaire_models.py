@@ -5,6 +5,7 @@ from core.models.information_models import Company, Country
 
 class Millionaire(models.Model):
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='millionaires')
     city = models.CharField(max_length=255)
     address = models.CharField(max_length=255)

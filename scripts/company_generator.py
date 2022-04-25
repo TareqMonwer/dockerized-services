@@ -1,12 +1,6 @@
 """Create Country records using batches."""
 import multiprocessing
-import os
 import random
-
-import django
-# must be in top of django.setup()
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
 from core.models.information_models import Company, Country
 from faker import Faker
 
@@ -23,7 +17,7 @@ def create_companies(_):
     )
 
 
-if __name__ == "__main__":
+def run():
     N_TO_GENERATE = 5000
     p = multiprocessing.Pool(50)
     p.map(create_companies, range(N_TO_GENERATE))

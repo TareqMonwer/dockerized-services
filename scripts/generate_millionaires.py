@@ -1,12 +1,6 @@
 """Create Millionaire records using batches."""
 import multiprocessing
-import os
 import random
-
-import django
-# must be in top of django.setup()
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
 from core.models.information_models import Company, Country
 from faker import Faker
 from core.models import Millionaire
@@ -29,7 +23,7 @@ def create_millionaire(i):
     )
 
 
-if __name__ == '__main__':
+def run():
     p = multiprocessing.Pool(50)
     p.map(create_millionaire, range(N_TO_GENERATE))
     p.close()

@@ -1,10 +1,4 @@
 """Create Country records using batches."""
-import os
-
-import django
-# must be in top of django.setup()
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
 from core.models.information_models import Country
 from faker import Faker
 
@@ -24,6 +18,6 @@ def create_countries():
     return len(set(country_list))
 
 
-if __name__ == "__main__":
+def run():
     count = create_countries()
     print("Created {} records.".format(count))
