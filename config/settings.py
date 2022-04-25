@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # third party apps
     'debug_toolbar',
     'django_htmx',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
