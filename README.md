@@ -41,3 +41,12 @@ provide folder permission using this command: `sudo chown -R $USER:$USER .` <br>
 + Available scripts: <br> `company_generator` <br>`generate_countries` <br>
 `generate_millionaires` <br> `upload_billionaire_images`
 + command: `python manage.py runscript upload_billionaire_images`
+
+
+## Coverage Report and Testing:
+Run unit-tests and see coverage reports by following the commands.
++ `coverage erase`  `# Remove any coverage data from previous runs`
++ `coverage run manage.py test`  `# Run the full test suite`
+
+Browse coverage report as HTML Page(s)
++ `coverage html` and browse `htmlcov/index.html` file.
