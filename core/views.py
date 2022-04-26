@@ -30,8 +30,8 @@ class TopMillionairesIndexView(ListView):
     template_name = 'core/index.html'
 
     def get_queryset(self):
-        top_millionaires = self.model.objects.annotate(votes_count=Count('votes')) \
-                .order_by('-votes_count')[:3]
+        top_millionaires = self.model.objects.prefetch_related('country', 'company', 'votes')\
+            .annotate(votes_count=Count('votes')).order_by('-votes_count')[:21]
         return top_millionaires[:21]
 
 
