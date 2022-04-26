@@ -1,5 +1,6 @@
-from django.views.generic import ListView
-from core.models import Millionaire
+from django.shortcuts import redirect
+from django.views.generic import ListView, View
+from core.models import Millionaire, VoteMillionaire
 
 
 class MillionaireListView(ListView):
@@ -12,3 +13,12 @@ class MillionaireListView(ListView):
 
 
 millionaire_list_view = MillionaireListView.as_view()
+
+
+class MillionaireVoteCreateView(View):
+    def get(self, request, millionaire_id, *args, **kwargs):
+        VoteMillionaire.objects.create(millionaire_id=millionaire_id)
+        return redirect('core:millionaire_list_url')
+
+
+millionaire_vote_create_view = MillionaireVoteCreateView.as_view()
