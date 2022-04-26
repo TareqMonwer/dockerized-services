@@ -13,7 +13,7 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {% if request.resolver_match.url_name == 'top_millionaires_index_url' %} active {% endif %}">
-                    <a class="nav-link" href="#"># Top 21</a>
+                    <a class="nav-link" href="{% url 'core:top_millionaires_index_url' %}"># Top 21</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
