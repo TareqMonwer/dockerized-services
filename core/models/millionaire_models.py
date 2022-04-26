@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 from core.models.information_models import Company, Country
@@ -5,7 +6,7 @@ from core.models.information_models import Company, Country
 
 class Millionaire(models.Model):
     name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    image = models.ImageField(upload_to='profile_pics/', default='system_default.png')
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='millionaires')
     city = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
