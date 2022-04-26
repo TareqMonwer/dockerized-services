@@ -10,7 +10,7 @@ class MillionaireListView(ListView):
     template_name = 'core/index.html'
 
     def get_queryset(self):
-        return self.model.objects.select_related('country', 'company')
+        return self.model.objects.prefetch_related('country', 'company', 'votes')
 
 
 millionaire_list_view = MillionaireListView.as_view()

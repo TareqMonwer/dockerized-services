@@ -1,3 +1,9 @@
+### Work in Progress/TODO:
++ Full text search
++ Genrate random votes for a group of millionaires (weekly/monthly/daily polls)
+using task schedular
++ Create millionaire
+
 ### Primary Goals:
 + Run every services in docker containers `docker, docker-compose, k8s`
 + Add Unit Tests and Test-Coverage `coverage, unittest, django-test, pre-commit, CI/CD`

@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
 
     # local apps
     'core.apps.CoreConfig',
+    'search.apps.SearchConfig',
 
     # third party apps
     'debug_toolbar',

@@ -6,6 +6,11 @@ class Country(models.Model):
     population = models.IntegerField(null=True, blank=True)
     flag = models.ImageField(upload_to='country_flags/', null=True, blank=True)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['name',]),
+        ]
+
     def __str__(self) -> str:
         return self.name
 
@@ -15,6 +20,11 @@ class Company(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='companies')
     number_of_employees = models.IntegerField(null=True, blank=True)
     net_worth = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['name',]),
+        ]
 
     def __str__(self) -> str:
         return self.name

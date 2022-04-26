@@ -1,11 +1,23 @@
 {% extends "base.html" %}
+{% load pagination_tags %}
 {% block title %}
     Home | {{ block.super }}
 {% endblock %}
 
 {% block body %}
 <div class="container" id="millionaires-container">
-    <div class="row justify-content-center mt-5">
+    {% if query %}
+        <div class="row mt-5">
+            <div class="col">
+                <small class="text-primary">
+                    Showing results for <em><b>{{ query }} </b></em>
+                    ({{ paginator.count }} records across {{ paginator.num_pages }} pages).
+                </small>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center mt-1">
         {% for object in object_list %}
             <div class="col-12 col-md-4 col-lg-3 col-xl-3 my-2">
                 <div class="card">
@@ -54,42 +66,45 @@
         {% endfor %}
     </div>
 
+    <!-- Pagination -->
     {% if is_paginated %}
     <div class="row justify-content-center mt-3">
         <nav hx-target="#main" hx-swap="outerHTML" hx-push-url="true">
             <ul class="pagination">
                 {% if page_obj.number != 1 %}
                 <li class="page-item">
-                    <a class="page-link" hx-get="?page=1" href="?page=1">
+                    <a class="page-link" hx-get="?{% url_replace request 'page' 1 %}" 
+                        href="?{% url_replace request 'page' 1 %}">
                         &laquo; First
                     </a>
                 </li>
                 {% endif %}
                 {% if page_obj.has_previous %}
                 <li  class="page-item">
-                    <a class="page-link" hx-get="?page={{ page_obj.previous_page_number }}" 
-                        href="?page={{ page_obj.previous_page_number }}">
+                    <a class="page-link" 
+                        hx-get="?{% url_replace request 'page' page_obj.previous_page_number %}" 
+                        href="?{% url_replace request 'page' page_obj.previous_page_number %}">
                         {{ page_obj.previous_page_number }}
                     </a>
                 </li>
                 {% endif %}
                 <li class="page-item active">
-                    <a class="page-link" href="?page={{ page_obj.number }}">
+                    <a class="page-link" href="?{% url_replace request 'page' page_obj.number %}">
                         {{ page_obj.number }}
                     </a>
                 </li>
                 {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" hx-get="?page={{ page_obj.next_page_number }}" 
-                        href="?page={{ page_obj.next_page_number }}">
+                    <a class="page-link" hx-get="?{% url_replace request 'page' page_obj.next_page_number %}" 
+                        href="?{% url_replace request 'page' page_obj.next_page_number %}">
                         {{ page_obj.next_page_number }}
                     </a>
                 </li>
                 {% endif %}
                 {% if page_obj.number != page_obj.paginator.num_pages %}
                 <li class="page-item">
-                    <a class="page-link" hx-get="?page={{ page_obj.paginator.num_pages }}" 
-                        href="?page={{ page_obj.paginator.num_pages }}">
+                    <a class="page-link" hx-get="?{% url_replace request 'page' page_obj.paginator.num_pages %}"
+                        href="?{% url_replace request 'page' page_obj.paginator.num_pages %}">
                         &raquo; Last
                     </a>
                 </li>
