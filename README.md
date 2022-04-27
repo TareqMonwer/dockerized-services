@@ -1,5 +1,5 @@
 ### Work in Progress/TODO:
-+ Full text search
++ Full text search (stemming, ranking, user-search-history)
 + Genrate random votes for a group of millionaires (weekly/monthly/daily polls)
 using task schedular
 + Create millionaire
