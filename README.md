@@ -1,8 +1,10 @@
 ### Work in Progress/TODO:
-+ Full text search (stemming, ranking, user-search-history)
-+ Genrate random votes for a group of millionaires (weekly/monthly/daily polls)
-using task schedular
-+ Create millionaire
+- [x] Full text search (stemming, ranking)
+- [ ] Authentication system (millionaire, business, user, admins)
+- [ ] User-search-history
+- [ ] CRUD millionaire
+- [ ] Genrate random votes for a group of millionaires (weekly/monthly/daily polls)
+using task schedula
 
 ### Primary Goals:
 + Run every services in docker containers `docker, docker-compose, k8s`
