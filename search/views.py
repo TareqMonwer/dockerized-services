@@ -10,12 +10,7 @@ from core.models import Millionaire
 class SearchMillionaires(View):
     paginate_by = 16
 
-    def get(self, request):
-        search_string = request.GET.get('q')
-        search_string = search_string if search_string else None
-        results = []
-        rank = None
-
+    def get_search_result_queryset(self, search_string):
         if search_string:
             vector = SearchVector('name', weight='A') + \
                 SearchVector('profession', weight='B')
@@ -38,6 +33,14 @@ class SearchMillionaires(View):
                 .annotate(search=vector, rank=rank, similarity=similarity, total=rank+similarity,
                     name_headline=name_headline, profession_headline=profession_headline) \
                         .order_by('-total').filter(Q(similarity__gt=0.2) | Q(rank__gt=0.1))
+            return results
+        return []
+
+    def get(self, request):
+        search_string = request.GET.get('q')
+        search_string = search_string if search_string else None
+        results = self.get_search_result_queryset(search_string)
+        rank = None
 
         paginator = Paginator(results, self.paginate_by)
         page = self.request.GET.get('page')
