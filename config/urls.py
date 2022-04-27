@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls', namespace='core')),
     path('search/', include('search.urls', namespace='search')),
+    path('users/', include('users.urls', namespace='users')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
 

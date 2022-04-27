@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %} Join | {{ block.super }} {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center align-items-center flex-row" style="min-height: 90vh;">
+        <div class="col-12 col-md-6">
+            <form action="/action_page.php">
+                <div class="form-group">
+                    <label for="username">Username:<small class="text-danger">*</small></label>
+                    <input type="text" class="form-control" placeholder="Enter username" 
+                        name="username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="account_type">Joining as:<small class="text-danger">*</small></label>
+                    <select class="form-control" id="account_type" name="account_type">
+                        <option>Millionaire</option>
+                        <option>Business</option>
+                        <option>None of the above</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="password">Password:<small class="text-danger">*</small></label>
+                    <div class="input-group" style="cursor: pointer;">
+                        <input type="password" class="form-control" placeholder="Enter password" 
+                            id="password" name="password">
+                        <div class="input-group-append" id="show_password">
+                            <span class="input-group-text" id="basic-addon2">
+                                👁️&nbsp;<span id="show_password_state" style="width: 40px;">Show</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block mb-3 btn-success">Join</button>
+                <div class="float-right">
+                    or <a href="{% url 'users:login_url' %}" class="btn btn-outline-primary">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    const showPasswordState = document.getElementById("show_password_state");
+    const showPasswordEl = document.getElementById("show_password");
+    const passwordInput = document.getElementById("password");
+
+    showPasswordEl.addEventListener('click', function(event) {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            showPasswordState.textContent = "Hide"
+        } else {
+            passwordInput.type = "password";
+            showPasswordState.textContent = "Show"
+        }
+    })
+</script>
+{% endblock %}
