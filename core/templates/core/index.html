@@ -27,14 +27,20 @@
                             alt="{{ object.name }}">
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ object.name }}</h5>
+                        <h5 class="card-title">
+                            {% if object.name_headline %}
+                                {{ object.name_headline | safe }}
+                            {% else %} 
+                                {{ object.name }}
+                            {% endif %}
+                        </h5>
                         <p class="card-text">{{ object.address }}</p>
                         
                         <a class="" data-toggle="collapse" href="#collapseInformation{{ object.id }}" role="button" aria-expanded="false"
                             aria-controls="collapseExample">Info 👇👇👇
                         </a>
                     </div>
-                    <div class="collapse" id="collapseInformation{{ object.id }}">
+                    <div class="{% if not query %}collapse{% endif %}" id="collapseInformation{{ object.id }}">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <strong>Country: </strong> {{ object.country }}
@@ -46,7 +52,12 @@
                                 <strong>Company: </strong> {{ object.company }}
                             </li>
                             <li class="list-group-item">
-                                <strong>Profession: </strong> {{ object.profession }}
+                                <strong>Profession: </strong> 
+                                {% if object.profession_headline %}
+                                    {{ object.profession_headline | safe }}
+                                {% else %}
+                                    {{ object.profession }}
+                                {% endif %}
                             </li>
                             <li class="list-group-item">
                                 <strong>Phone: </strong> {{ object.phone }}

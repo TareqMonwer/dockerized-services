@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.views.generic import View
 from django.shortcuts import render
-from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
+from django.contrib.postgres.search import (SearchVector, SearchRank, SearchHeadline,
+                                            SearchQuery, TrigramSimilarity)
 from core.models import Millionaire
 
 
@@ -15,13 +17,28 @@ class SearchMillionaires(View):
         rank = None
 
         if search_string:
-            vector = SearchVector('name', 'profession')
+            vector = SearchVector('name', weight='A') + \
+                SearchVector('profession', weight='B')
             search_query = SearchQuery(search_string)
             rank = SearchRank(vector, search_query)
+            similarity = TrigramSimilarity('name', search_string)
+            name_headline = SearchHeadline(
+                'name',
+                search_query,
+                start_sel='<b><u><i>',
+                stop_sel='</i></u></b>',
+            )
+            profession_headline = SearchHeadline(
+                'profession',
+                search_query,
+                start_sel='<span class="bg-warning">',
+                stop_sel='</span>',
+            )
             results = Millionaire.objects.prefetch_related('country', 'company', 'votes') \
-                .annotate(search=vector, rank=rank).filter(search=search_query) \
-                .order_by('-rank')
-        
+                .annotate(search=vector, rank=rank, similarity=similarity, total=rank+similarity,
+                    name_headline=name_headline, profession_headline=profession_headline) \
+                        .order_by('-total').filter(Q(similarity__gt=0.2) | Q(rank__gt=0.1))
+
         paginator = Paginator(results, self.paginate_by)
         page = self.request.GET.get('page')
         try:
@@ -30,7 +47,7 @@ class SearchMillionaires(View):
             results = paginator.page(1)
         except EmptyPage:
             results = paginator.page(paginator.num_pages)
-        
+
         context = {
             'query': search_string,
             'rank': rank,

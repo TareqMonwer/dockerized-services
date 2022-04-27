@@ -22,6 +22,7 @@ using task schedular
 
 ### Project (Millionaires) Specs:
 + List millionaires by their rank, list newly joined millionaires (platform users actually)
++ Full-text search with stemming, ranking
 + Update newly joined millionaires tag for millionaires after ten days.
 + Allow millionaires to follow others and manage their profiles
 + Millionaire Foundation Election (?)
@@ -39,8 +40,16 @@ Starting up this project is very simple, If you have docker and docker-compose s
 provide folder permission using this command: `sudo chown -R $USER:$USER .` <br> Then run `docker-compose up --build --scale worker=4` again.
 + Now you can access `http://127.0.0.1:8000/`
 + if you want to run migration and perform other bash actions from the project terminal, run `dodcke-compose exec we sh`. <br> It will take you to the project root bash of the docker host. Try perfoming some linux commands ;)
-+ EXTRA: generate data running data scripts in this order: (`generate_countries.py, company_generator.py, generate_millionaires.py`)
-+ EXTRA PERFORMANCE TESTING: run `locust` and you can monitor performance metrics at `http://127.0.0.1:8089/`
++ <b>EXTRA:</b> generate data running data scripts in this order: (`generate_countries.py, company_generator.py, generate_millionaires.py`)
++ <b>EXTRA PERFORMANCE TESTING:</b> run `locust` and you can monitor performance metrics at `http://127.0.0.1:8089/`
+
+## Full-text-search Setup:
+This project uses postgres as database very strictly because it uses features specific to only postgres.
+Like full-text-search feature. Here's what you'll need to setup for stemming search queries:
++ access bash/shell of postgres container: `docker exec -it <CONTAINER ID> bash`
++ acess psql db: `psql -U <db_name>`
++ install the `pg_trgm` extension: `CREATE EXTENSION pg_trgm;`
+
 
 ## Project scripts (RunScript by django-extensions):
 + use self explanatory run scripts by running the command bellow (chose either option from <>).
