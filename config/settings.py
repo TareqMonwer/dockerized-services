@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # local apps
     'core.apps.CoreConfig',
     'search.apps.SearchConfig',
+    'users.apps.UsersConfig',
 
     # third party apps
     'debug_toolbar',
