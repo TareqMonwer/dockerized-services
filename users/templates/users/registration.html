@@ -6,7 +6,11 @@
 <div class="container">
     <div class="row justify-content-center align-items-center flex-row" style="min-height: 90vh;">
         <div class="col-12 col-md-6">
-            <form action="/action_page.php">
+            <div class="mb-3">
+                {% include '_partials/_messages.html' %}
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="username">Username:<small class="text-danger">*</small></label>
                     <input type="text" class="form-control" placeholder="Enter username" 
@@ -15,9 +19,9 @@
                 <div class="form-group">
                     <label for="account_type">Joining as:<small class="text-danger">*</small></label>
                     <select class="form-control" id="account_type" name="account_type">
-                        <option>Millionaire</option>
-                        <option>Business</option>
-                        <option>None of the above</option>
+                        {% for user_type_key,user_type_val  in user_types.items %}
+                            <option value="{{ user_type_key }}">{{ user_type_val }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="mb-3">

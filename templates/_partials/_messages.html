@@ -1,0 +1,5 @@
+{% if messages %}
+    {% for message in messages %}
+        <li><strong class="text-danger">Error: </strong> {{ message }}</li>
+    {% endfor %}
+{% endif %}
