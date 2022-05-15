@@ -50,7 +50,7 @@ class LoginView(View):
         auth_user = authenticate(username=username, password=password)
         if auth_user is not None:
             login(request, auth_user)
-            return redirect('users:login_url')
+            return redirect('core:millionaire_list_url')
         else:
             messages.add_message(request, messages.ERROR, 'Couldn\'t verify user for given credentials!')
             return redirect('users:login_url')
@@ -62,7 +62,7 @@ login_view = LoginView.as_view()
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return render(request, 'users/login.html')
+        return redirect('users:login_url')
 
 
 logout_view = LogoutView.as_view()
