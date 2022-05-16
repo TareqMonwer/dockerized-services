@@ -16,3 +16,5 @@ class UserProfile(BaseUserProfile):
     def __str__(self) -> str:
         name = self.full_name if self.full_name else self.user.username.title()
         return name
+
+

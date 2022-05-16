@@ -16,11 +16,12 @@ class RegistrationView(View):
     def post(self, request):
         data = request.POST.dict()
         username = data.get('username')
+        email = data.get('email')
         password = data.get('password')
         account_type = data.get('account_type')
 
         try:
-            user = User.objects.create_user(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password, email=email)
             user.user_profile.type = account_type
             user.save()
 
