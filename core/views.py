@@ -1,6 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import redirect
 from django.views.generic import ListView, View
+from core.constants import TOP_MILLIONAIRES_COUNT
 from core.models import Millionaire, VoteMillionaire
 
 
@@ -31,8 +32,8 @@ class TopMillionairesIndexView(ListView):
 
     def get_queryset(self):
         top_millionaires = self.model.objects.prefetch_related('country', 'company', 'votes')\
-            .annotate(votes_count=Count('votes')).order_by('-votes_count')[:21]
-        return top_millionaires[:21]
+            .annotate(votes_count=Count('votes')).order_by('-votes_count')[:TOP_MILLIONAIRES_COUNT]
+        return top_millionaires[:TOP_MILLIONAIRES_COUNT]
 
 
 top_millionaires_index_view = TopMillionairesIndexView.as_view()
