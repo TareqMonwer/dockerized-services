@@ -1,10 +1,13 @@
 ### Work in Progress/TODO:
 - [x] Full text search (stemming, ranking)
-- [ ] Authentication system (millionaire, business, user, admins)
-- [ ] User-search-history
+- [x] Authentication system (email, username) (millionaire, business, user, admins)
+- [ ] Following system (follow millionaires)
 - [ ] CRUD millionaire
+- [ ] Profile acquiring process (user can acquire a millionaire profile)
 - [ ] Genrate random votes for a group of millionaires (weekly/monthly/daily polls)
-using task schedula
+using task schedular
+- [ ] User-search-history
+
 
 ### Primary Goals:
 + Run every services in docker containers `docker, docker-compose, k8s`
