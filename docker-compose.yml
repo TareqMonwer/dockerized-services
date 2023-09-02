@@ -1,6 +1,15 @@
 version: "3.9"
 
 services:
+  reverse_proxy:
+    image: traefik:v2.10
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   master:
     image: locustio/locust
     ports:
@@ -42,7 +51,10 @@ services:
       - DJANGO_SUPERUSER_PASSWORD=admin
     depends_on:
       - db
+      - reverse_proxy
     restart: always
+    labels:
+      - "traefik.http.routers.dj_millionaires_service.rule=Host(`main.localhost`)"
 
   fastapi_todo_backend:
     build:
@@ -51,6 +63,10 @@ services:
     volumes:
       - ./fastapi_todo_backend/:/code
     ports:
-      - "8002:80"
+      - "8001:8001"
+    depends_on:
+      - reverse_proxy
     restart: always
+    labels:
+      - "traefik.http.routers.fastapi_todo_backend.rule=Host(`todo.localhost`)"
 
