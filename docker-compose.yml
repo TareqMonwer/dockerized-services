@@ -25,7 +25,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  web:
+  dj_millionaires_service:
     build:
       context: ./dj_millionaires_service
       dockerfile: dj_millionaires_service.dockerfile
@@ -42,5 +42,15 @@ services:
       - DJANGO_SUPERUSER_PASSWORD=admin
     depends_on:
       - db
+    restart: always
+
+  fastapi_todo_backend:
+    build:
+      context: ./fastapi_todo_backend
+      dockerfile: fastapi_todo_backend.dockerfile
+    volumes:
+      - ./fastapi_todo_backend/:/code
+    ports:
+      - "8002:80"
     restart: always
 
