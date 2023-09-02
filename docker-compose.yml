@@ -1,42 +1,45 @@
 version: "3.9"
-   
+
 services:
   master:
     image: locustio/locust
     ports:
-      - "8089:8089"
+      - "8099:8089"
     volumes:
-      - ./:/mnt/locust
+      - ./dj_millionaires_service/:/mnt/locust
     command: -f /mnt/locust/locustfile.py --master -H http://master:8089
 
   worker:
     image: locustio/locust
     volumes:
-      - ./:/mnt/locust
+      - ./dj_millionaires_service/:/mnt/locust
     command: -f /mnt/locust/locustfile.py --worker --master-host master
 
   db:
     image: postgres
     restart: always
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./dj_millionaires_service/data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./dj_millionaires_service
+      dockerfile: dj_millionaires_service.dockerfile
+    command: ./prestart.sh
     volumes:
-      - .:/code
-      - ./static:/code/static
+      - ./dj_millionaires_service/:/code
+      - ./dj_millionaires_service/static:/code/static
     ports:
       - "8000:8000"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - DJANGO_SUPERUSER_PASSWORD=admin
     depends_on:
       - db
     restart: always

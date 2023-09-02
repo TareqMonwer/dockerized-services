@@ -10,3 +10,7 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
 COPY . /code/
+
+RUN chmod +x /code/prestart.sh
+ENV PYTHONPATH=/code
+# CMD ["./prestart.sh"]
