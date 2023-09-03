@@ -9,6 +9,8 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - custom_network
 
   master:
     image: locustio/locust
@@ -17,22 +19,33 @@ services:
     volumes:
       - ./dj_millionaires_service/:/mnt/locust
     command: -f /mnt/locust/locustfile.py --master -H http://master:8089
+    networks:
+      - custom_network
 
   worker:
     image: locustio/locust
     volumes:
       - ./dj_millionaires_service/:/mnt/locust
     command: -f /mnt/locust/locustfile.py --worker --master-host master
+    networks:
+      - custom_network
 
   db:
     image: postgres
     restart: always
+    ports:
+      - 5432:5432
     volumes:
-      - ./dj_millionaires_service/data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=todos_db
+      - POSTGRES_INITDB_ARGS=--data-checksums
+    command: postgres -c 'shared_preload_libraries=pg_stat_statements' -c 'wal_level=logical'
+    networks:
+      - custom_network
 
   dj_millionaires_service:
     build:
@@ -55,18 +68,29 @@ services:
     restart: always
     labels:
       - "traefik.http.routers.dj_millionaires_service.rule=Host(`main.localhost`)"
+    networks:
+      - custom_network
 
   fastapi_todo_backend:
     build:
       context: ./fastapi_todo_backend
       dockerfile: fastapi_todo_backend.dockerfile
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/todos_db
+    command: ./app/prestart.sh
     volumes:
       - ./fastapi_todo_backend/:/code
+      - ./dj_millionaires_service/:/code
     ports:
       - "8001:8001"
     depends_on:
       - reverse_proxy
+      - db
     restart: always
     labels:
       - "traefik.http.routers.fastapi_todo_backend.rule=Host(`todo.localhost`)"
+    networks:
+      - custom_network
 
+networks:
+  custom_network:

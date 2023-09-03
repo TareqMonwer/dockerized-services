@@ -1,3 +1,8 @@
+### Usage:
++ Run `docker-compose up --build`
++ Currently traefik urls available are: `main.localhost.com` and `todo.localhost.com`
++ Api-docs for todos are at `todo.localhost.com/docs`
+
 ### Work in Progress/TODO:
 - [x] Full text search (stemming, ranking)
 - [x] Authentication system (email, username) (millionaire, business, user, admins)
